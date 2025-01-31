@@ -179,17 +179,38 @@ bool sieve(int n)
 // }
 void solve()
 {
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
 
-    // 2d input
-    // vector<vector< int>> d(n, vector< int>(m));
-    //   int n;
-    // cin >> n;
-    // vector< int> a(n);
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cin >> a[i];
-    //}
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    sort(a.begin(), a.end()); // Sort the array properly
+
+    int al = 0, b = 0;
+
+    for (int i = n - 2; i >= 0; i -= 2)
+    {
+        b += a[i];
+        if (i + 1 < n && k > 0 && (a[i + 1] - a[i] > 0))
+        {
+            int x = min(k, a[i + 1] - a[i]);
+            b += x;
+            k -= x;
+        }
+    }
+
+    for (int i = n - 1; i >= 0; i -= 2)
+    {
+        al += a[i];
+    }
+
+    cout << abs(al - b) << endl;
 }
+
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());
