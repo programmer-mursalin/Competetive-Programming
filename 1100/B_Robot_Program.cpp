@@ -222,6 +222,11 @@ void solve()
             break;
         }
     }
+    if (in != 0)
+    {
+        cout << ans << endl;
+        cheakmate
+    }
 
     cout << (ans) + ((k - ses) / ses2) << endl;
 }
