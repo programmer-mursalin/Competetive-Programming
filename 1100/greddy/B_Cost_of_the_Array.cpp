@@ -179,90 +179,49 @@ bool sieve(int n)
 // }
 void solve()
 {
-    // 2D input
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
 
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n), b;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
+        cin >> a[i];
+        a[i]--;
+    }
+    // sort(ALL(a));
+    // int lim = ceil(float(n) / k);
+    // int l = n - lim;
+    // int o = l / (k - 1);
+    // int x = (n / 2) + 1;
+
+    if (n == k)
+    {
+        for (int i = 1; i < n; i += 2)
         {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
+            if (a[i] != i / 2)
             {
-                maxi = mp[d[i][j]];
+                cout << i / 2 + 1 << endl;
+                cheakmate
             }
         }
+        cout << k / 2 + 1 << endl;
+
+        cheakmate
     }
 
-    if (mp.size() == 1)
+    for (int i = 1; i <= n - k + 1; i++)
     {
-        cout << 0 << endl;
-        return;
-    }
-
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
-
-    // Checking row-wise adjacency
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m - 1; j++)
+        if (a[i] != 0)
         {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
+            cout << 1 << endl;
 
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
+            cheakmate
         }
     }
-
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
-            {
-                mp1[d[j][i]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
-
-    // cout << ans << " " << cnt << endl;
-
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
+    cout << 2 << endl;
 }
-
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());

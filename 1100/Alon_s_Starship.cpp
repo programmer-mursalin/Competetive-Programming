@@ -57,6 +57,7 @@ using namespace std;
 #define pz cout << "0\n";
 #define pn cout << "NO\n";
 #define cheakmate return;
+#define PI 3.14159265358979323846
 // #define pbds tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for set
 // int d = st.order_of_key(pre2[n / 2]);
 // #define pbds tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for multiset
@@ -177,90 +178,45 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
+double toRadians(double degrees)
+{
+    return degrees * (PI / 180.0);
+}
+
 void solve()
 {
-    // 2D input
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
+    int n;
+    double t;
+    cin >> n >> t;
 
+    vector<pair<int, int>> p(n);
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
-            {
-                maxi = mp[d[i][j]];
-            }
-        }
+        cin >> p[i].first >> p[i].second;
     }
 
-    if (mp.size() == 1)
+    int ans = 1; // Start with the first point
+    double startX = p[0].first;
+    double startY = p[0].second;
+
+    for (int i = 1; i < n; i++)
     {
-        cout << 0 << endl;
-        return;
-    }
+        double x = p[i].first - startX;
+        double y = p[i].second - startY;
+        y = abs(y);
+        double angle = atan2(y, x) * (180.0 / PI);
 
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
-
-    // Checking row-wise adjacency
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m - 1; j++)
+        if (abs(angle) <= t)
         {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
+            ans++;
+            startX = p[i].first;
+            startY = p[i].second;
         }
+        else
+            break;
     }
 
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
-            {
-                mp1[d[j][i]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
-
-    // cout << ans << " " << cnt << endl;
-
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
+    cout << ans << endl;
 }
 
 // priority_queue<int>pq;
@@ -282,12 +238,8 @@ signed main()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
+    solve();
+
     return 0;
 }
 

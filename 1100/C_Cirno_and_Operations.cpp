@@ -167,7 +167,6 @@ bool sieve(int n)
 //     int ans = 1;
 //     while (b)
 //     {
-
 //         if (b & 1)
 //         {
 //             ans = (ans * 1ll * a) % Mod;
@@ -179,90 +178,61 @@ bool sieve(int n)
 // }
 void solve()
 {
-    // 2D input
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
-
+    int n;
+    cin >> n;
+    vector<int> a(n);
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
-            {
-                maxi = mp[d[i][j]];
-            }
-        }
+        cin >> a[i];
     }
 
-    if (mp.size() == 1)
+    ll ans = 0;
+    if (n == 1)
     {
-        cout << 0 << endl;
+        cout << a[0] << endl;
         return;
     }
 
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
+    ll a1 = accumulate(a.begin(), a.end(), 0ll);
 
-    // Checking row-wise adjacency
-    for (int i = 0; i < n; i++)
+    while (a.size() > 1)
     {
-        for (int j = 0; j < m - 1; j++)
-        {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
+        vector<int> p = a;
+        reverse(p.begin(), p.end());
 
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
+        vector<int> rep(a.size() - 1);
+        vector<int> rev(a.size() - 1);
+
+        for (int i = 0; i < rep.size(); i++)
+        {
+            rep[i] = p[i + 1] - p[i];
         }
+        ll sum2 = accumulate(rep.begin(), rep.end(), 0ll);
+
+        for (int i = 0; i < rev.size(); i++)
+        {
+            rev[i] = a[i + 1] - a[i];
+        }
+        ll sum21 = accumulate(rev.begin(), rev.end(), 0ll);
+        if (a1 >= sum2 && a1 >= sum21)
+        {
+            a = rev;
+            continue;
+        }
+        else if (sum2 >= sum21)
+        {
+            a1 = sum2;
+        }
+
+        else
+        {
+            a1 = sum21;
+        }
+        a = rev;
     }
 
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
-            {
-                mp1[d[j][i]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
-
-    // cout << ans << " " << cnt << endl;
-
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
+    cout << a1 << endl;
 }
-
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());

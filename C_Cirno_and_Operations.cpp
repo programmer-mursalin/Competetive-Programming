@@ -1,4 +1,3 @@
-
 /*
 
 ⠐⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀
@@ -177,111 +176,93 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
+
 void solve()
 {
-    // 2D input
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
-
+    int n;
+    cin >> n;
+    vector<int> a(n);
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
-            {
-                maxi = mp[d[i][j]];
-            }
-        }
+        cin >> a[i];
     }
-
-    if (mp.size() == 1)
+    // sort(ALL(a));
+    int res = 0;
+    if (n == 1)
     {
-        cout << 0 << endl;
-        return;
+        cout << a[0] << endl;
     }
 
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
-
-    // Checking row-wise adjacency
-    for (int i = 0; i < n; i++)
+    else if (n == 2)
     {
-        for (int j = 0; j < m - 1; j++)
+        if (a[0] < 0 || a[1] == 0)
         {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
+            a[0] = -a[0];
+            a[1] = -a[1];
         }
+        a[0] = -(a[0]);
+        // if (a[1] < 0)
+        //     a[1] = -(a[1]);
+        cout << a[0] + a[1] << endl;
+        cheakmate
     }
-
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
+    else
     {
-        for (int j = 0; j < n - 1; j++)
+        while (n > 1)
         {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
+
+            vector<int> v;
+            for (int i = 0; i < n - 1; i++)
             {
-                mp1[d[j][i]] = 1; // Fix assignment issue
 
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
+                v.push_back(a[i + 1] - a[i]);
             }
+
+            int r = accumulate(ALL(v), 0ll);
+
+            // If diff_sum is negative, invert the diffs
+            // if (diff_sum < 0)
+            // {
+            //     for (int &val : diffs)
+            //     {
+            //         val = -val;
+            //     }
+            // }
+            if (r < 0)
+            {
+                vector<int> m(v.size());
+                for (int i = 0; i < v.size(); i++)
+                {
+                    m.push_back(-v[i]);
+                }
+                int k = 0;
+                for (int i = 0; i < m.size(); i++)
+                {
+                    k += m[i];
+                }
+                res = max(res, k);
+                // for (int i = 0; i < v.size(); i++)
+                // {
+                //     v.push_back(-v[i]);
+                // }
+                reverse(ALL(m));
+                a = m;
+            }
+            else
+            {
+                res = max(res, r);
+                reverse(ALL(v));
+                a = v;
+            }
+
+            n--;
         }
+        cout << res << endl;
     }
-
-    // cout << ans << " " << cnt << endl;
-
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
 }
 
-// priority_queue<int>pq;
-// priority_queue<int,vector<int>,greater<int>>pq;
-//  sort(ALL(a),greater<int>());
-//  int maxi=*max_element(a.begin(),a.end());
-//   int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
-
-// sort(vec.begin(), vec.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
-// if (a.first != b.first) {
-// return a.first < b.first; // Sort by first element (ascending)
-//}
-// return a.second > b.second;  // If first elements are equal, sort by second element (descending)
-// });
 signed main()
 {
-
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-
     int t;
     cin >> t;
     while (t--)
@@ -290,7 +271,3 @@ signed main()
     }
     return 0;
 }
-
-/*===============================================
-  :::::::::::::Author :Md.Mursalin:::::::::::::
-  ===============================================*/

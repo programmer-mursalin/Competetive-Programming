@@ -74,19 +74,19 @@ const int N = 1e5 + 5;
 //     return;
 // }
 
-// bool cheak(const vector<long long int> &a)
-// {
-//     if (is_sorted(a.begin(), a.end()))
-//     {
+bool cheak(const vector<long long> &a)
+{
+    if (is_sorted(a.begin(), a.end()))
+    {
 
-//         return true;
-//     }
-//     else
-//     {
+        return true;
+    }
+    else
+    {
 
-//         return false;
-//     }
-// }
+        return false;
+    }
+}
 
 // if (is_sorted(a.begin(), a.end()))
 // {
@@ -179,90 +179,43 @@ bool sieve(int n)
 // }
 void solve()
 {
-    // 2D input
+
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
     int n, m;
     cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
-
+    vector<int> a(n), b(1);
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
-            {
-                maxi = mp[d[i][j]];
-            }
-        }
+        cin >> a[i];
     }
-
-    if (mp.size() == 1)
+    for (int i = 0; i < 1; i++)
     {
-        cout << 0 << endl;
-        return;
+        cin >> b[i];
     }
-
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
-
-    // Checking row-wise adjacency
+    if (cheak(a))
+    {
+        py cheakmate
+    }
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m - 1; j++)
+        int x = b[0] - a[i];
+        if (i + 1 < n && (a[i] > a[i + 1]) && ((x > a[i + 1]) || (i - 1 >= 0 && a[i - 1] > x)))
         {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
+            pn cheakmate
         }
+        if (i + 1 < n && a[i] > a[i + 1])
+        {
+            a[i] = x;
+        }
+        // if (i - 1 >= 0 && x >= a[i - 1])
+        // {
+        //     a[i] = x;
+        // }
     }
 
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
-            {
-                mp1[d[j][i]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
-
-    // cout << ans << " " << cnt << endl;
-
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
+    py
 }
-
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());

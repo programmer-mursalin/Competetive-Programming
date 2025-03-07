@@ -179,88 +179,92 @@ bool sieve(int n)
 // }
 void solve()
 {
-    // 2D input
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
+    int n, k;
+    cin >> n >> k;
 
+    string s, a, b, c;
+    cin >> s;
+
+    // Divide string s into two parts (a and b)
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
+        if (i & 1)
         {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
-            {
-                maxi = mp[d[i][j]];
-            }
+            a.push_back(s[i]);
         }
+        else
+            b.push_back(s[i]);
     }
 
-    if (mp.size() == 1)
+    // Sort both parts
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+
+    int i = 0, j = 0;
+
+    // Merge a and b into c alternatively
+    while (c.size() < n)
     {
-        cout << 0 << endl;
-        return;
+        if (i < b.size())
+            c.push_back(b[i++]);
+        if (c.size() == n)
+            break;
+        if (j < a.size())
+            c.push_back(a[j++]);
+        // if (a[i] <= b[i] && i < a.size() && i < b.size())
+        // {
+        // }
     }
-
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
-
-    // Checking row-wise adjacency
-    for (int i = 0; i < n; i++)
+    if (k & 1)
     {
-        for (int j = 0; j < m - 1; j++)
-        {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
+        cout << c << endl;
+        cheakmate
     }
+    sort(ALL(c));
+    cout << c << endl;
 
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
-            {
-                mp1[d[j][i]] = 1; // Fix assignment issue
+    // Reverse segments if needed
+    // for (int i = 0; i < n - 1; i++)
+    // {
+    //     if (c[i] > c[i + 1] && k % 2 == 0)
+    //     {
+    //         swap(c[i], c[i + 1]);
+    //     }
+    // }
 
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
+    // for (int i = 0; i < n - 1; i++)
+    // {
+    //     if (c[i] > c[i + 1] && k % 2 == 0)
+    //     {
+    //         swap(c[i], c[i + 1]);
+    //     }
+    // }
 
-    // cout << ans << " " << cnt << endl;
+    // for (int i = 0; i < n - 1; i++)
+    // {
+    //     if (c[i] > c[i + 1] && k % 2 == 0)
+    //     {
+    //         swap(c[i], c[i + 1]);
+    //     }
+    // }
 
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
+    // for (int i = 0; i < n - 1; i++)
+    // {
+    //     if (c[i] > c[i + 1] && k % 2 == 0)
+    //     {
+    //         swap(c[i], c[i + 1]);
+    //     }
+    // }
+
+    // for (int i = 0; i < n - 1; i++)
+    // {
+    //     if (c[i] > c[i + 1] && k % 2 == 0)
+    //     {
+    //         swap(c[i], c[i + 1]);
+    //     }
+    // }
+
+    // Output the final string
 }
 
 // priority_queue<int>pq;
@@ -275,6 +279,7 @@ void solve()
 //}
 // return a.second > b.second;  // If first elements are equal, sort by second element (descending)
 // });
+
 signed main()
 {
 

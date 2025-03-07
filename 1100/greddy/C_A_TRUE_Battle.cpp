@@ -1,4 +1,3 @@
-
 /*
 
 ⠐⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀
@@ -29,10 +28,7 @@
 */
 
 #include <bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
-// using namespace __gnu_pbds;
 #define ll long long
 #define vll vector<long long>
 #define vpll vector<pair<long long, long long>>
@@ -50,6 +46,7 @@ using namespace std;
     cin >> t; \
     f(case_num, 1, t + 1)
 #define all(x) x.begin(), x.end()
+#define y cout << "Yes" << endl
 #define no cout << "No" << endl
 #define ALL(x) (x).begin(), (x).end()
 #define py cout << "YES\n";
@@ -57,9 +54,6 @@ using namespace std;
 #define pz cout << "0\n";
 #define pn cout << "NO\n";
 #define cheakmate return;
-// #define pbds tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for set
-// int d = st.order_of_key(pre2[n / 2]);
-// #define pbds tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for multiset
 
 const int N = 1e5 + 5;
 #define Mod 1000000009 + 7
@@ -179,103 +173,38 @@ bool sieve(int n)
 // }
 void solve()
 {
-    // 2D input
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> d(n, vector<int>(m));
-    unordered_map<int, int> mp;
-    int maxi = INT_MIN, sp = -1;
 
-    for (int i = 0; i < n; i++)
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
+    int n, flag = 0;
+    cin >> n;
+
+    string s;
+    cin >> s;
+    // int a = count(ALL(s), '0');
+    // int b = count(ALL(s), '1');
+    // if (b % 2 == 0)
+    //     py else pn
+    for (int i = 0; i < n - 1; i++)
     {
-        for (int j = 0; j < m; j++)
-        {
-            cin >> d[i][j];
-            mp[d[i][j]]++;
-            if (mp[d[i][j]] > maxi)
-            {
-                maxi = mp[d[i][j]];
-            }
-        }
+        if (s[i] == '1' && s[i + 1] == '1')
+            flag = 1;
     }
+    if (s[0] == '1' || s[n - 1] == '1' || flag == 1)
+        py else pn
 
-    if (mp.size() == 1)
-    {
-        cout << 0 << endl;
-        return;
-    }
+    // vector< int> a(n);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     cin >> a[i];
+    //}
 
-    map<int, int> mp1;
-    int ans = 0, cnt = 0, flag = 0, f = 0;
-
-    // Checking row-wise adjacency
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m - 1; j++)
-        {
-            if ((d[i][j] == d[i][j + 1]) && (mp1[d[i][j]] == 0) && (d[i][j] != sp))
-            {
-                mp1[d[i][j]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[i][j];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
-
-    // Checking column-wise adjacency
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n - 1; j++)
-        {
-            if ((d[j][i] == d[j + 1][i]) && (mp1[d[j][i]] == 0) && (d[j][i] != sp))
-            {
-                mp1[d[j][i]] = 1; // Fix assignment issue
-
-                if (flag == 1)
-                {
-                    ans += 2;
-                    cnt++;
-                }
-                if (f == 0)
-                {
-                    sp = d[j][i];
-                    f = 1;
-                }
-                flag = 1;
-            }
-        }
-    }
-
-    // cout << ans << " " << cnt << endl;
-
-    ans += (mp.size() - cnt);
-    int x = mp.size() - 1; // Corrected formula
-    cout << min(ans, x) + cnt << endl;
+    // sort(ALL(a),greater<int>());
+    // int maxi=*max_element(a.begin(),a.end());
+    //  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
 }
-
-// priority_queue<int>pq;
-// priority_queue<int,vector<int>,greater<int>>pq;
-//  sort(ALL(a),greater<int>());
-//  int maxi=*max_element(a.begin(),a.end());
-//   int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
-
-// sort(vec.begin(), vec.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
-// if (a.first != b.first) {
-// return a.first < b.first; // Sort by first element (ascending)
-//}
-// return a.second > b.second;  // If first elements are equal, sort by second element (descending)
-// });
-signed main()
+signed
+main()
 {
 
     ios::sync_with_stdio(false);
