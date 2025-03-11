@@ -177,44 +177,94 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+bool p_2(int n)
+{
+    if (n <= 0)
+        return false;
+    while (n % 2 == 0)
+    {
+        n /= 2;
+    }
+    return n == 1;
+}
+
+string decimalToBinary(int n)
+{
+    string binary = "";
+
+    // Convert decimal to binary by dividing by 2
+    while (n > 0)
+    {
+        binary += to_string(n % 2); // Add remainder (0 or 1)
+        n = n / 2;                  // Divide by 2
+    }
+
+    // Reverse the string to get the correct binary order
+    reverse(binary.begin(), binary.end());
+
+    return binary;
+}
+
+int binaryToDecimal(const string &binary)
+{
+    int decimal = 0;
+    int power = 1; // Power of 2 (starts from 2^0)
+
+    // Iterate through the string from right to left
+    for (int i = binary.size() - 1; i >= 0; --i)
+    {
+        if (binary[i] == '1')
+        {
+            decimal += power; // Add the corresponding power of 2
+        }
+        power *= 2; // Move to the next power of 2
+    }
+
+    return decimal;
+}
+
 void solve()
 {
+    int n;
+    cin >> n;
 
-    // 2d input
-    // vector<vector< int>> d(n, vector< int>(m));
-    int n, k;
-    cin >> n >> k;
-    vector<int> a;
-    map<int, int> mp;
-    if (k & 1)
+    // If needed, you can use p_2 function for a check
+    if (p_2(n) == 1 || p_2(n + 1) == 1)
     {
-        for (int i = 0; i < n - 1; i++)
-        {
-            a.push_back(n);
-        }
-        for (int i = 0; i < a.size(); i++)
-        {
-            cout << a[i] << " ";
-        }
-        cout << n - 1 << endl;
+        pm cheakmate
     }
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     // int x = (n - i) * 2;
-    //     // int y = (k % x);
-    //     // mp[i] = (i + y);
 
-    //     cout << mp[i] << " ";
-    // }
-    else
+    string res = decimalToBinary(n);
+    string s = ""; // Initialize as empty string
+    int ok = 0;
+
+    for (int i = res.size() - 1; i >= 0; i--)
     {
-        for (int i = 0; i < n - 2; i++)
-            a.push_back(n);
-        for (int i = 0; i < a.size(); i++)
-            cout << a[i] << " ";
-        cout << n - 1 << " " << n << endl;
+        if (res[i] == '1' && ok == 0)
+        { // Check for '1' instead of 1
+            ok = 1;
+            s += '1'; // Add '1' as a character to the string
+            continue;
+        }
+        if (res[i] == '0')
+        {
+            s += '1'; // Add '1' for '0' in the binary string
+        }
+        else if (res[i] == '1')
+        {
+            s.push_back('0'); // Correctly add '0'
+        }
     }
+
+    reverse(s.begin(), s.end());        // Reverse the string
+    cout << binaryToDecimal(s) << endl; // Output the decimal value
 }
+
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());
@@ -227,6 +277,7 @@ void solve()
 //}
 // return a.second > b.second;  // If first elements are equal, sort by second element (descending)
 // });
+
 signed main()
 {
 

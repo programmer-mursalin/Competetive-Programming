@@ -182,38 +182,19 @@ void solve()
 
     // 2d input
     // vector<vector< int>> d(n, vector< int>(m));
-    int n, k;
-    cin >> n >> k;
-    vector<int> a;
-    map<int, int> mp;
-    if (k & 1)
-    {
-        for (int i = 0; i < n - 1; i++)
-        {
-            a.push_back(n);
-        }
-        for (int i = 0; i < a.size(); i++)
-        {
-            cout << a[i] << " ";
-        }
-        cout << n - 1 << endl;
-    }
-    // for (int i = 1; i <= n; i++)
+    //   int n;
+    // cin >> n;
+    // vector< int> a(n);
+    // for (int i = 0; i < n; i++)
     // {
-    //     // int x = (n - i) * 2;
-    //     // int y = (k % x);
-    //     // mp[i] = (i + y);
-
-    //     cout << mp[i] << " ";
-    // }
+    //     cin >> a[i];
+    //}
+    int x, y, z, k;
+    cin >> x >> y >> z >> k;
+    if (abs(x) == abs(y) && abs(y) == abs(z) && abs(z) == abs(k))
+        cout << "Yes" << endl;
     else
-    {
-        for (int i = 0; i < n - 2; i++)
-            a.push_back(n);
-        for (int i = 0; i < a.size(); i++)
-            cout << a[i] << " ";
-        cout << n - 1 << " " << n << endl;
-    }
+        cout << "No" << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
