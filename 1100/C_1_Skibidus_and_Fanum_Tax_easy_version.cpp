@@ -1,4 +1,3 @@
-
 /*
 
 ⠐⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀
@@ -197,21 +196,43 @@ void solve()
     {
         py cheakmate
     }
-    for (int i = 0; i < n; i++)
+    int prev = a[0];
+    if ((b[0] - a[0]) < a[0])
+        prev = b[0] - a[0];
+    for (int i = 1; i < n; i++)
     {
         int x = b[0] - a[i];
-        if (i + 1 < n && (a[i] > a[i + 1]) && ((x > a[i + 1]) || (i - 1 >= 0 && a[i - 1] > x)))
-        {
-            pn cheakmate
-        }
-        if (i + 1 < n && a[i] > a[i + 1])
-        {
-            a[i] = x;
-        }
-        // if (i - 1 >= 0 && x >= a[i - 1])
+
+        // if (i + 1 < n && (a[i] > a[i + 1]) || ((i - 1 >= 0 && a[i - 1] > a[i])))
         // {
-        //     a[i] = x;
+        //     if (x > a[i + 1] || (i - 1 >= 0 && a[i - 1] > x))
+        //     {
+        //         pn return;
+        //     }
+        //     else
+        //     {
+        //         a[i] = x;
+        //     }
         // }
+
+        if (a[i] < prev)
+        {
+            if (x < prev)
+            {
+                pn cheakmate
+            }
+            prev = x;
+        }
+
+        else
+        {
+            if ((x >= prev) && a[i] > x)
+            {
+                prev = x;
+            }
+            else
+                prev = a[i];
+        }
     }
 
     py

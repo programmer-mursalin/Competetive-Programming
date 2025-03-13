@@ -20,7 +20,6 @@ public:
         for (int i = 0; i < pat.size(); i++)
         {
             counter[pat[i] - 'a']++;
-        }
 
         int i = 0, j = 0;
 
