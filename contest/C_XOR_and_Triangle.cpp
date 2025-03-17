@@ -263,6 +263,7 @@ void solve()
 
     reverse(s.begin(), s.end());        // Reverse the string
     cout << binaryToDecimal(s) << endl; // Output the decimal value
+    // cout << __lg(n) << endl;
 }
 
 // priority_queue<int>pq;

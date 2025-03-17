@@ -182,52 +182,40 @@ void solve()
 
     // 2d input
     // vector<vector< int>> d(n, vector< int>(m));
-    int n;
-    cin >> n;
-    vector<int> a(2 * n), b, c;
-    for (int i = 0; i < 2 * n; i++)
+    //   int n;
+    // cin >> n;
+    // vector< int> a(n);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     cin >> a[i];
+    //}
+
+    int n, k;
+    cin >> n >> k;
+
+    int cnt = 0;
+    if ((n & 1) && (k & 1))
     {
-        cin >> a[i];
+        int ok = 0;
+        if (((n - 1) % (k - 1)) != 0)
+            ok = 1;
+        cout << ((n - 1) / (k - 1)) + ok << endl;
+    }
+    else if (!(n & 1) && (k & 1))
+    {
+        int ok = 0;
+        if (((n) % (k - 1)) != 0)
+            ok = 1;
+        cout << n / (k - 1) + ok << endl;
     }
 
-    sort(ALL(a));
-    int x = 0;
-
-    if (n == 1)
+    else if ((n & 1) && !(k & 1))
     {
-        cout << a[2 * n - 1] << " " << a[0] + a[2 * n - 1] << " " << a[0] << endl;
-        cheakmate
+        int ok = 0;
+        if (((n - 1) % k) != 0)
+            ok = 1;
+        cout << ((n - 1) / k) + ok << endl;
     }
-    for (int i = 1; i < n; i++)
-    {
-        b.push_back(a[i]);
-    }
-
-    for (int i = n; i < 2 * n - 1; i++)
-    {
-        c.push_back(a[i]);
-    }
-
-    // b.push_back(a[0]);
-    // b.push_back(a[2 * n - 1]);
-
-    int s1 = accumulate(ALL(b), 0ll);
-    int s2 = accumulate(ALL(c), 0ll);
-    c.push_back(a[0]);
-    c.push_back(a[2 * n - 1]);
-    b.push_back((s2 - s1) + a[0] + a[2 * n - 1]);
-    int m = c.size();
-    int i = 0, j = 0;
-    while (i < m)
-    {
-        cout << c[i] << " ";
-        if (j < b.size())
-            cout << b[j] << " ";
-        i++;
-        j++;
-    }
-
-    cout << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
