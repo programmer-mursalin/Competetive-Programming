@@ -184,10 +184,8 @@ void solve()
     int n, m;
     cin >> n >> m;
     vector<vector<char>> d(n, vector<char>(m));
-    //   int n;
-    // cin >> n;
-    // vector< int> a(n);
 
+    // vector< int> a(n);
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
@@ -198,37 +196,18 @@ void solve()
 
     for (int i = 0; i < n; i++)
     {
+        int flag = 0;
         for (int j = 0; j < m; j++)
         {
-            int ok1 = 1, ok2 = 1;
             if (d[i][j] == '1')
-            {
-
-                for (int r = 0; r < j; r++)
-                {
-                    if (d[i][r] == '0')
-                    {
-                        ok1 = 0;
-                        break;
-                    }
-                }
-                for (int s = 0; s < i; s++)
-                {
-                    if (d[s][j] == '0')
-                    {
-                        ok2 = 0;
-                        break;
-                    }
-                }
-            }
-            if (ok1 == 0 && ok2 == 0)
-            {
-                pn cheakmate
-            }
+                flag = 1;
+        }
+        if (flag == 1)
+        {
         }
     }
-    py
 }
+
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());

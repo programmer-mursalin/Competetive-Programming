@@ -192,16 +192,47 @@ void solve()
     int x, y, a;
     cin >> x >> y >> a;
 
-    // if ( < a / x)
-    //     py else pn
-    // // if (((a + (x + y) - 1) / (x + y)))
-    int sr = x + y;
-    if (x > a)
-        pn else if (sr > a) py else
+    if (a % (x + y) == 0)
+    {
+        if ((a / (x + y)) % 2 == 0)
         {
-            if ((a / sr) * sr + x > a)
-                pn else py
+            pn cheakmate
         }
+
+        else
+        {
+            py cheakmate
+        }
+    }
+
+    else if (a % (x + y) != 0)
+    {
+        if ((a / (x + y)) % 2 == 0)
+        {
+            if (a % (x + y) <= x)
+            {
+                py cheakmate
+            }
+
+            else
+            {
+                pn cheakmate
+            }
+        }
+
+        else
+        {
+            if (a % (x + y) <= y)
+            {
+                py cheakmate
+            }
+
+            else
+            {
+                pn cheakmate
+            }
+        }
+    }
 
     // priority_queue<int>pq;
     // priority_queue<int,vector<int>,greater<int>>pq;
