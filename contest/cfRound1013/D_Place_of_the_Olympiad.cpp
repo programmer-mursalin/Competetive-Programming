@@ -189,6 +189,13 @@ void solve()
     // {
     //     cin >> a[i];
     //}
+
+    int n, m, k;
+    cin >> n >> m >> k;
+    int v = (k + n - 1) / n;
+    int w = m - v;
+    int ans = (v + (w + 1) - 1) / (w + 1);
+    cout << ans << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
