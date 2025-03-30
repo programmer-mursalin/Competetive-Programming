@@ -189,25 +189,31 @@ void solve()
     for (int i = 0; i < n; i++)
     {
         cin >> a[i];
-        if ((a[i] & 1))
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] % 2 == 0)
+            e_c = 1;
+        if (a[i] % 2 != 0)
             o_c++;
-        if (!(a[i] & 1))
-            e_c++;
     }
-    int sum = accumulate(ALL(a), 0ll);
-    int maxi = *max_element(a.begin(), a.end());
-    int v = sum - o_c;
-    if (o_c == 0 || o_c == n)
+
+    if (o_c == 0 || e_c == 0)
     {
-        cout << maxi << endl;
-        cheakmate
+        //     if (n > 1)
+        //         cout << 0 << endl;
+        //     else
+        //         cout << a[0] << endl;
+        // }
+        // else if (e_c == 0)
+        // {
+        cout << *max_element(ALL(a)) << endl;
     }
-    if (!(v & 1))
+    else
     {
-        cout << v + 1 << endl;
-        cheakmate
+        int x = accumulate(ALL(a), 0ll);
+        cout << x - (o_c - 1) << endl;
     }
-    cout << v << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
