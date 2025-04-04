@@ -177,47 +177,103 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
-void solve()
+// void solve()
+// {
+//     int n, k;
+//     long long x;
+//     cin >> n >> k >> x;
+//     vector<int> a(n);
+//     for (int i = 0; i < n; i++)
+//     {
+//         cin >> a[i];
+//     }
+
+//     long long total = accumulate(ALL(a), 0ll);
+//     long long sum = (x + total - 1) / total;
+
+//     long long ok = 0, l = 0, flag = 0;
+//     if (total * k < x)
+//     {
+//         cout << 0 << endl;
+//         cheakmate
+//     }
+//     if (x % total == 0)
+//     {
+//         flag = total;
+//     }
+//     else if (x > total)
+//         flag = (x % total);
+
+//     else
+//         flag = x;
+//     for (int i = n - 1; i >= 0; i--)
+//     {
+//         ok += a[i];
+//         if (ok >= flag)
+//         {
+
+//             l = i + 1;
+//             break;
+//         }
+//     }
+
+//     cout << l + (n * k - (sum * n)) << endl;
+// }
+
+void binaryserach()
 {
-    int n, k;
-    long long x;
+
+    int n, k, x;
     cin >> n >> k >> x;
-    vector<int> a(n);
+    vector<int> a(n), pre(n, 0);
+    //
+
     for (int i = 0; i < n; i++)
     {
         cin >> a[i];
     }
-
-    long long total = accumulate(ALL(a), 0ll);
-    long long sum = (x + total - 1) / total;
-
-    long long ok = 0, l = 0, flag = 0;
-    if (total * k < x)
+    reverse(ALL(a));
+    pre[0] = a[0];
+    for (int i = 1; i < n; i++)
+    {
+        pre[i] = pre[i - 1] + a[i];
+    }
+    int sum = accumulate(ALL(a), 0ll);
+    int low = 0, high = n * k;
+    if (x > k * 1ll * sum)
     {
         cout << 0 << endl;
         cheakmate
     }
-    if (x % total == 0)
-    {
-        flag = total;
-    }
-    else if (x > total)
-        flag = (x % total);
+    int ans = 0;
 
-    else
-        flag = x;
-    for (int i = n - 1; i >= 0; i--)
+    // if (n * k == 1)
+    // {
+    //     if (pre[0] >= x)
+    //     {
+    //         cout << 1 << endl;
+    //     }
+    //     else
+    //         cout << 0 << endl;
+
+    //     cheakmate
+    // }
+    while (low <= high)
     {
-        ok += a[i];
-        if (ok >= flag)
+
+        int mid = low + (high - low) / 2;
+        int div = mid / n;
+        int rem = mid % n;
+        if ((div * sum) + (pre[rem]) >= x)
         {
-
-            l = i + 1;
-            break;
+            ans = (n * k) - mid;
+            high = mid - 1;
         }
+        else
+            low = mid + 1;
     }
 
-    cout << l + (n * k - (sum * n)) << endl;
+    cout << ans << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
@@ -242,7 +298,8 @@ signed main()
     cin >> t;
     while (t--)
     {
-        solve();
+        // solve();
+        binaryserach();
     }
     return 0;
 }
