@@ -61,7 +61,7 @@ using namespace std;
 // int d = st.order_of_key(pre2[n / 2]);
 // #define pbds tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for multiset
 
-const int N = 1e5 + 5;
+const int N = 2e5 + 5;
 #define Mod 1000000009 + 7
 
 // const int N = 1e7 + 10;
@@ -177,92 +177,42 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
-// void solve()
-// {
-//     int n, k;
-//     long long x;
-//     cin >> n >> k >> x;
-//     vector<int> a(n);
-//     for (int i = 0; i < n; i++)
-//     {
-//         cin >> a[i];
-//     }
-
-//     long long total = accumulate(ALL(a), 0ll);
-//     long long sum = (x + total - 1) / total;
-
-//     long long ok = 0, l = 0, flag = 0;
-//     if (total * k < x)
-//     {
-//         cout << 0 << endl;
-//         cheakmate
-//     }
-//     if (x % total == 0)
-//     {
-//         flag = total;
-//     }
-//     else if (x > total)
-//         flag = (x % total);
-
-//     else
-//         flag = x;
-//     for (int i = n - 1; i >= 0; i--)
-//     {
-//         ok += a[i];
-//         if (ok >= flag)
-//         {
-
-//             l = i + 1;
-//             break;
-//         }
-//     }
-
-//     cout << l + (n * k - (sum * n)) << endl;
-// }
-
-void binaryserach()
+bool visi[N];
+vector<int> a(N);
+int ans;
+void dfs(int v)
+{
+    visi[v] = 1;
+    ans++;
+    if (!visi[a[v]])
+        dfs(a[v]);
+}
+void solve()
 {
 
-    int n, k, x;
-    cin >> n >> k >> x;
-    vector<int> a(n), pre(n, 0);
-    //
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
+    int n;
+    cin >> n;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
         cin >> a[i];
+        visi[i] = 0;
     }
-    reverse(ALL(a));
-    pre[0] = a[0];
-    for (int i = 1; i < n; i++)
+    ans = 0;
+    for (int i = 1; i <= n; i++)
     {
-        pre[i] = pre[i - 1] + a[i];
-    }
-    int sum = accumulate(ALL(a), 0ll);
-    int low = 0, high = n * k;
-    if (x > 1ll * k * sum)
-    {
-        cout << 0 << endl;
-        cheakmate
-    }
-    int ans = 0;
-
-    while (low <= high)
-    {
-
-        int mid = low + (high - low) / 2;
-        int div = mid / n;
-        int rem = mid % n;
-        if ((div * sum) + (pre[rem]) >= x)
+        int d;
+        cin >> d;
+        if (!visi[d])
         {
-            ans = (n * k) - mid;
-            high = mid - 1;
+            dfs(d);
         }
-        else
-            low = mid + 1;
+        cout << ans << " ";
     }
 
-    cout << ans << endl;
+    cout << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
@@ -287,8 +237,7 @@ signed main()
     cin >> t;
     while (t--)
     {
-        // solve();
-        binaryserach();
+        solve();
     }
     return 0;
 }
