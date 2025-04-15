@@ -5,6 +5,7 @@
         "*.dbclient-js": "javascript",
         "iostream": "cpp",
         "cstdlib": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "cmath": "cpp"
     }
 }
