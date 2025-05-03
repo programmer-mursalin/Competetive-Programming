@@ -179,106 +179,43 @@ bool sieve(int n)
 // }
 void solve()
 {
-    int n;
-    cin >> n;
 
-    string s;
-    cin >> s;
-
-    vector<int> ans, g, l;
-    int cnt_g = count(s.begin(), s.end(), '<');
-    int cnt_l = count(s.begin(), s.end(), '>');
-
-    int s1 = cnt_g, s2 = cnt_l;
-    s2--;
-
-    // if (cnt_g > cnt_l)
-    //     s1++;
-    // else if (cnt_g == cnt_l)
-    // {
-    //     if (s[0] == '<')
-    //         s1++;
-    //     else
-    //         s2++;
-    // }
-
-    // else
-    //     s2++;
-
-    if (s[0] == '<')
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n), c(n), b;
+    map<int, int> mp;
+    for (int i = 0; i < n; i++)
     {
-        s1++;
-    }
-    else if (s[0] == '>')
-    {
-
-        s2++;
+        cin >> a[i];
     }
 
-    // Decreasing part (for '>')
-    for (int i = n; i >= (n - s2); i--)
-        l.push_back(i);
-
-    // Increasing part (for '<')
-    for (int i = 1; i <= s1; i++)
-        g.push_back(i);
-
-    reverse(ALL(l));
-    reverse(ALL(g));
-
-    int l1 = 0, u = 0;
-
-    // Handle first character
-    if (s[0] == '<')
+    for (int i = 0; i < n; i++)
     {
-
-        ans.push_back(g[0]);
-        ans.push_back(g[1]);
-        l1 += 2;
-        // if (cnt_g < cnt_l)
-        // {
-        //     u++;
-        //     g.push_back(l[0]);
-        // }
+        cin >> c[i];
     }
-    else if (s[0] == '>')
+    int ans = 0;
+    for (int i = 0; i < n; i++)
     {
-
-        ans.push_back(l[0]);
-        ans.push_back(l[1]);
-        u += 2;
-
-        // if (ans.size() == 1)
-        // {
-        //     ans.push_back(l[0]);
-
-        //     u++;
-        // }
-        // if (cnt_l < cnt_g)
-        // {
-        //     l1++;
-        //     l.push_back(g[0]);
-        // }
-    }
-
-    // Fill remaining based on signs
-    for (int i = 1; i < s.size(); i++)
-    {
-        if (s[i] == '<')
+        if (a[i] >= c[i])
         {
-            ans.push_back(g[l1]);
-            l1++;
+            ans += a[i];
+            b.push_back(c[i]);
         }
         else
         {
-            ans.push_back(l[u]);
-            u++;
+            ans += c[i];
+            b.push_back(a[i]);
         }
     }
+    sort(ALL(b), greater<int>());
+    for (int i = 0; i < k - 1; i++)
+    {
+        ans += b[i];
+    }
 
-    for (int num : ans)
-        cout << num << " ";
-    cout << endl;
+    cout << ans + 1 << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
