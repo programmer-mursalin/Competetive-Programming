@@ -1,5 +1,3 @@
-
-
 #include <bits/stdc++.h>
 // #include <ext/pb_ds/assoc_container.hpp>
 // #include <ext/pb_ds/tree_policy.hpp>
@@ -7,7 +5,6 @@ using namespace std;
 // using namespace __gnu_pbds;
 #define ll long long
 #define gcd __gcd
-
 #define ALL(x) (x).begin(), (x).end()
 #define py cout << "YES\n";
 #define pm cout << "-1\n";
@@ -26,18 +23,28 @@ void solve()
     long long k;
     cin >> n >> k;
     vector<long long> a(n);
-    long long sum = 0, mn = 1e18;
+    map<int, int> mp;
+    long long sum = 0, mn = 1e18, mx = -1e18;
     for (int i = 0; i < n; ++i)
     {
         cin >> a[i];
         sum += a[i];
         mn = min(mn, a[i]);
+        mx = max(mx, a[i]);
+        mp[a[i]]++;
     }
-    long long moves = sum - mn * n;
-    if (moves % 2 == 0)
-        cout << "Tom\n";
+    if (mp[mx] < 2)
+        mx--;
+    if (mx - mn > k)
+    {
+        cout << "Jerry" << endl;
+    }
+    else if (sum & 1)
+        cout << "Tom" << endl;
     else
-        cout << "Jerry\n";
+    {
+        cout << "Jerry" << endl;
+    }
 }
 // sort(ALL(a),greater<int>());
 // int maxi=*max_element(a.begin(),a.end());
