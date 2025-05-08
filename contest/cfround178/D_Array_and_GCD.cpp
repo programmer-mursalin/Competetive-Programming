@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
+#define int long long
 #define gcd __gcd
 
 #define ALL(x) (x).begin(), (x).end()
@@ -13,7 +13,7 @@ const int N = 1e5 + 5;
 #define Mod 1000000009 + 7
 int cnt = 0;
 vector<int> basePrimes;
-vector<ll> primesUpTo1e9;
+vector<int> primesUpTo1e9;
 
 void simpleSieve()
 {
@@ -40,7 +40,6 @@ void simpleSieve()
         if (primesUpTo1e9.size() == 4e5)
             break;
     }
-    sort(ALL(primesUpTo1e9));
 }
 
 void solve()
@@ -54,14 +53,16 @@ void solve()
     }
     sort(a.begin(), a.end());
     int l = 0, h = n - 1;
-    int ans = 0;
+    int ans = n;
     while (l <= h)
     {
-        int mid = l + (h - l + 1) / 2; // fixed
+        int mid = l + (h - l) / 2; // fixed
 
         int bonus = 0, req = 0, s = 0;
         for (int j = mid; j < n; j++)
         {
+            if (s >= primesUpTo1e9.size())
+                break;
             if (a[j] > primesUpTo1e9[s])
                 bonus += (a[j] - primesUpTo1e9[s]);
             else
@@ -80,7 +81,7 @@ void solve()
         }
     }
 
-    cout << l << endl;
+    cout << ans << endl;
 }
 
 signed main()
