@@ -1,79 +1,111 @@
 #include <bits/stdc++.h>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
+// using namespace __gnu_pbds;
+#define ll long long
+#define gcd __gcd
 
-#define fast                     \
-    ios::sync_with_stdio(false); \
-    cin.tie(0);
-#define int long long
+#define ALL(x) (x).begin(), (x).end()
+#define py cout << "YES\n";
+#define pm cout << "-1\n";
+#define pz cout << "0\n";
+#define pn cout << "NO\n";
+#define cheakmate return;
+const int N = 1e5 + 5;
+#define Mod 1000000009 + 7
 
-bool can_collect(const vector<int> &a, const vector<int> &b)
+void solve()
 {
-    int i = 0, j = 0;
-    while (i < a.size() && j < b.size())
+
+    int n, m;
+    cin >> n >> m;
+    vector<int> arr;
+    for (int i = 0; i < n; i++)
     {
-        if (a[i] >= b[j])
-            j++;
-        i++;
+        int c;
+        cin >> c;
+        arr.push_back(c);
     }
-    return j == b.size();
-}
+    vector<int> fr(m + 1, -1);
+    vector<int> bc(m + 1, -1);
+    vector<int> b;
+    for (int i = 0; i < m; i++)
+    {
+        int c;
+        cin >> c;
+        b.push_back(c);
+    }
+    int i = 0, j = 0;
+    while (i < m && j < n)
+    {
+        if (arr[j] >= b[i])
+        {
+            fr[i] = j;
+            ++j, ++i;
+        }
+        else
+            ++j;
+    }
+    i = m - 1, j = n - 1;
+    while (i >= 0 && j >= 0)
+    {
+        if (arr[j] >= b[i])
+        {
+            bc[i] = j;
+            --j, --i;
+        }
+        else
+            --j;
+    }
+    if (bc[0] != -1)
+        cout << 0 << endl;
+    else
+    {
+        int mn = INT_MAX;
+        if (m == 1)
+        {
+            cout << b[0] << endl;
+            cheakmate
+        }
+        for (int i = 1; i < m - 1; i++)
+        {
+            if (fr[i - 1] < bc[i + 1] && fr[i - 1] != -1 && bc[i + 1] != -1)
+            {
+                mn = min(mn, b[i]);
+            }
+        }
+        if (bc[1] != -1)
+            mn = min(mn, b[0]);
+        if (fr[m - 2] != -1)
+            mn = min(mn, b[m - 1]);
 
-int32_t main()
+        if (mn == INT_MAX)
+            cout << -1 << endl;
+        else
+            cout << mn << endl;
+    }
+}
+// sort(ALL(a),greater<int>());
+// int maxi=*max_element(a.begin(),a.end());
+//  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
+
+signed main()
 {
-    fast;
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
     int t;
     cin >> t;
     while (t--)
     {
-        int n, m;
-        cin >> n >> m;
-
-        vector<int> a(n), b(m);
-        for (int i = 0; i < n; i++)
-            cin >> a[i];
-        for (int i = 0; i < m; i++)
-            cin >> b[i];
-
-        // Step 1: যদি না বসিয়েই সম্ভব হয়
-        if (can_collect(a, b))
-        {
-            cout << 0 << "\n";
-            continue;
-        }
-
-        // Step 2: বসিয়েও যদি সম্ভব না হয় → পরে দেখবো
-        int lo = 1, hi = 1e9, ans = -1;
-
-        // Binary search করছি সর্বনিম্ন k খুঁজে পেতে
-        while (lo <= hi)
-        {
-            int mid = (lo + hi) / 2;
-            bool ok = false;
-
-            // সব পজিশনে বসিয়ে দেখবো
-            for (int i = 0; i <= n; i++)
-            {
-                vector<int> temp = a;
-                temp.insert(temp.begin() + i, mid); // ফুল বসালাম
-                if (can_collect(temp, b))
-                {
-                    ok = true;
-                    break;
-                }
-            }
-
-            if (ok)
-            {
-                ans = mid;
-                hi = mid - 1;
-            }
-            else
-            {
-                lo = mid + 1;
-            }
-        }
-
-        cout << ans << "\n";
+        solve();
     }
     return 0;
 }
+
+/*===============================================
+  :::::::::::::Author :Md.Mursalin:::::::::::::
+  ===============================================*/
