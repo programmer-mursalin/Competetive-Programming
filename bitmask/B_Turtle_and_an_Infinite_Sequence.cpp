@@ -181,28 +181,29 @@ void solve()
 {
     int n, m;
     cin >> n >> m;
-    int l = max(n - m, 0LL);
-    int r = n + m;
-    int ans = 0;
+
+    int ans = n;
+
     for (int i = 0; i < 32; i++)
     {
-        int c = r / (1LL << i);
-        if (c % 2)
+
+        if ((1LL << i) <= m)
         {
-            ans |= 1LL << i;
-            continue;
+            ans |= (1 << i);
         }
-        if (l == 0)
+        else
         {
-            if (c)
-                ans |= 1LL << i;
-            continue;
+            int left = max(0ll, (n - m));
+            int right = n + m;
+
+            if (((left / (1LL << i)) & 1) || ((right / (1LL << i)) & 1))
+            {
+                ans |= (1 << i);
+            }
         }
-        int c2 = l / (1LL << i);
-        if (c != c2)
-            ans |= 1LL << i;
     }
-    cout << ans << '\n';
+
+    cout << ans << endl;
 }
 
 // priority_queue<int>pq;

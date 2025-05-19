@@ -177,49 +177,39 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
-int binaryToDecimal(string binary)
-{
-    int decimal = 0;
-    int length = binary.length();
-
-    for (int i = 0; i < length; ++i)
-    {
-        if (binary[i] == '1')
-        {
-            decimal += pow(2, length - 1 - i);
-        }
-    }
-
-    return decimal;
-}
 void solve()
 {
     int n;
     cin >> n;
-    multiset<int> ms;
-    int ans = n;
-    for (int i = 0; i < n; i++)
+    int i = n, j = 1e9, ans = -1;
+    while (i <= j)
     {
-        int x;
-        cin >> x;
-        // XOR with (1 << 31) - 1 (flip all 31 bits)
-        int flipped = x ^ ((1 << 31) - 1);
-
-        if (ms.count(flipped))
+        int mid = i + (j - i) / 2;
+        string s = to_string(mid);
+        int cnt_4 = 0, cnt_7 = 0;
+        for (int k = 0; k < s.size(); k++)
         {
-         
-            ms.erase(ms.find(flipped)); 
-            ans--;                      
+            if (s[k] == '4')
+                cnt_4++;
+            else if (s[k] == '7')
+                cnt_7++;
+        }
+        if (s[0] - '0' > 4)
+        {
+            j = mid - 1;
+        }
+        else if ((cnt_4 == cnt_7) && (cnt_4 + cnt_7 == s.size()))
+        {
+            ans = mid;
+            j = mid - 1;
         }
         else
-        {
-         
-            ms.insert(x);
-        }
+            i = mid + 1;
     }
 
-    cout << ans << '\n';
+    cout << ans << endl;
 }
+
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());
@@ -239,12 +229,8 @@ signed main()
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
+    solve();
+
     return 0;
 }
 

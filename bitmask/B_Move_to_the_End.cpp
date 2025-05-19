@@ -177,52 +177,35 @@ bool sieve(int n)
 //     }
 //     return ans;
 // }
-int binaryToDecimal(string binary)
-{
-    int decimal = 0;
-    int length = binary.length();
-
-    for (int i = 0; i < length; ++i)
-    {
-        if (binary[i] == '1')
-        {
-            decimal += pow(2, length - 1 - i);
-        }
-    }
-
-    return decimal;
-}
 void solve()
 {
+
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
     int n;
     cin >> n;
-    multiset<int> ms;
-    int ans = n;
+    vector<int> a(n), v(n), suff(n), ans(n);
     for (int i = 0; i < n; i++)
     {
-        int x;
-        cin >> x;
-        // XOR with (1 << 31) - 1 (flip all 31 bits)
-        int flipped = x ^ ((1 << 31) - 1);
-
-        if (ms.count(flipped))
-        {
-         
-            ms.erase(ms.find(flipped)); 
-            ans--;                      
-        }
-        else
-        {
-         
-            ms.insert(x);
-        }
+        cin >> a[i];
     }
 
-    cout << ans << '\n';
+    sort(ALL(v), greater<int>());
+    suff[n - 1] = a[n - 1];
+
+    for (int i = n - 2; i >= 0; i--)
+    {
+        suff[i] = suff[i + 1] + a[i];
+    }
+    reverse(ALL(suff));
+    for (int i = 0; i < n; i++)
+    {
+        if (suff[i]<)
+    }
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
-//  sort(ALL(a),greater<int>());
+
 //  int maxi=*max_element(a.begin(),a.end());
 //   int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
 
