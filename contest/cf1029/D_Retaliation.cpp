@@ -3,7 +3,7 @@
 // #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 // using namespace __gnu_pbds;
-#define int long long
+#define ll long long
 #define gcd __gcd
 
 #define ALL(x) (x).begin(), (x).end()
@@ -18,35 +18,43 @@ const int N = 1e5 + 5;
 void solve()
 {
 
-    // 2d input
-    // vector<vector< int>> d(n, vector< int>(m));
-    int n;
+    ll n;
     cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
+    vector<ll> a(n);
+    for (auto &x : a)
+        cin >> x;
+
+    if (2 * a[0] - a[1] < 0 || (2 * a[0] - a[1]) % (n + 1) != 0)
     {
-        cin >> a[i];
+        pn cheakmate
     }
-    int mini = 1e9 + 1000;
-    for (int i = 0; i < n; i++)
+
+    ll x2 = (2 * a[0] - a[1]) / (n + 1);
+    ll x1 = a[0] - n * x2;
+
+    if (x1 < 0)
     {
-        mini = min(mini, a[i] / (i + 1));
+        pn cheakmate
     }
-    int ok = 0, cnt = 0;
-    for (int i = 0; i < n; i++)
+
+    bool pos = true;
+
+    for (ll i = 1; i <= n; i++)
     {
-        if ((a[i] - (mini * (i + 1))) % (n - i) != 0)
-        {
-            ok = 1;
-        }
-        if (((a[i] - (mini * (i + 1))) != 0))
-        {
-            cnt++;
-        }
+        if (a[i - 1] - i * x1 - (n - i + 1) * x2 != 0)
+            pos = false;
     }
-    if (ok == 1 || (cnt >= 1 && cnt < n))
-        pn else py
+
+    if (pos)
+    {
+        py
+    }
+    else
+    {
+        pn
+    }
 }
+
 // sort(ALL(a),greater<int>());
 // int maxi=*max_element(a.begin(),a.end());
 //  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
