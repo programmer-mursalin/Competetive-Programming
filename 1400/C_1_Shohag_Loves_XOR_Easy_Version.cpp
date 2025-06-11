@@ -1,4 +1,3 @@
-
 /*
 
 ⠐⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀
@@ -189,6 +188,25 @@ void solve()
     // {
     //     cin >> a[i];
     //}
+
+    int n, m, ans = 0;
+    cin >> n >> m;
+
+    int bits = (n == 0) ? 1 : (int)log2(n) + 1;
+    int f = (1 << bits) - 1;
+
+    for (int i = 1; i <= min(f, m); i++)
+    {
+        int x = n ^ i;
+        if (x == 0)
+            continue;
+        if ((n % x == 0) || (i % x == 0))
+        {
+            ans++;
+        }
+    }
+
+    cout << ans << endl;
 }
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
@@ -207,7 +225,6 @@ signed main()
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    
     cout.tie(nullptr);
 
     int t;
