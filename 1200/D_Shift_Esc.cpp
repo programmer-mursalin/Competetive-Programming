@@ -1,5 +1,6 @@
 
 /*
+
 ⠐⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣆⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠃⠀⠀⠀⠀⢀⠀⠀⠀⠘⣿⣿⣆⠀⠀
@@ -16,7 +17,8 @@
 ⢸⣧⠀⠀⠀⢸⡇⠀⣿⡀⠀⠀⠀⠀⠀⢰⣿⣿⡄⠀⠀⠀⠀⢹⡟⠀⠀⠀⣿⡇
 ⠈⣿⡄⠀⢀⣿⠇⠀⣿⣧⡀⠀⠀⠀⣠⣿⠋⣿⣿⣦⣀⣀⣠⣾⡇⠀⠀⠀⢿⡇
 ⠀⢻⣿⣶⣾⡿⠀⠀⠹⣿⣿⣶⣶⣿⣿⠋⠀⠈⠻⣿⣿⣿⡿⠟⠀⠀⠀⠀⢸⡇
-⠀⠀⠙⠛⠋⠀⠀⠀⠀⠈⠛⠿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠙⠛⠋⠀⠀⠀⠀⠈⠛⠿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀
+
 */
 /*
     "BISMILLAHIR RAHMANIR RAHIM"
@@ -38,6 +40,8 @@ using namespace std;
 #define gcd __gcd
 #define inf 1e18
 #define pb push_back
+#define pii tuple<int, int, int, int>
+
 #define ff first
 #define ss second
 #define int long long
@@ -122,26 +126,6 @@ const int N = 1e5 + 5;
 //     }
 //     return true;
 // }
-bool sieve(int n)
-{
-    if (n < 2)
-        return false; // 0 and 1 are not prime
-
-    vector<bool> isPrime(n + 1, true);
-    isPrime[0] = isPrime[1] = false;
-
-    for (int i = 2; i * i <= n; i++)
-    {
-        if (isPrime[i])
-        {
-            for (int j = i * i; j <= n; j += i)
-            {
-                isPrime[j] = false;
-            }
-        }
-    }
-    return isPrime[n]; // Return whether `n` is prime
-}
 
 // vector<vector<int>> a(n, vector<int>(m));
 
@@ -160,103 +144,64 @@ bool sieve(int n)
 //     return lowerExponent;
 // }
 
-// int binaryExponenetialIterative(int a, int b)
-// {
-//     int ans = 1;
-//     while (b)
-//     {
-
-//         if (b & 1)
-//         {
-//             ans = (ans * 1ll * a) % Mod;
-//         }
-//         a = (a * 1ll * a) % Mod;
-//         b >>= 1;
-//     }
-//     return ans;
-// }
 void solve()
 {
 
-    // 2d input
-    // vector<vector< int>> d(n, vector< int>(m));
-    int n;
-    cin >> n;
-    // vector< int> a(n);
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cin >> a[i];
-    //}
+    int n, m, rr;
+    cin >> n >> m >> rr;
 
-    string s;
-    cin >> s;
-    if (s[0] == 'A' && s[n - 1] == 'A')
+    vector<vector<int>> mat(n, vector<int>(m));
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
+            cin >> mat[i][j];
+
+    int min_d = INT_MAX;
+    set<tuple<int, int, int>> seen;
+    priority_queue<tuple<int, int, int, int>, vector<tuple<int, int, int, int>>, greater<tuple<int, int, int, int>>> h;
+    h.push(make_tuple(0, 0, -1, 0));
+
+    while (!h.empty())
     {
-        cout << "Alice" << endl;
-        cheakmate
-    }
+        tuple<int, int, int, int> top = h.top();
+        h.pop();
+        int d = get<0>(top);
+        int k = get<1>(top);
+        int x = get<2>(top);
+        int y = get<3>(top);
 
-    if (s[0] == 'B' && s[n - 1] == 'B')
-    {
-        cout << "Bob" << endl;
-        cheakmate
-    }
-    // if (s == "AB")
-    // {
-    //     cout << "Alice" << endl;
-    //     cheakmate
-    // }
+        if (d > min_d)
+            continue;
+        if (seen.count(make_tuple(k, x, y)))
+            continue;
+        seen.insert(make_tuple(k, x, y));
 
-        int ok1 = 1,
-        ok = 2;
-    if (s[0] == 'A')
-    {
-
-        for (int i = 1; i < n - 1; i++)
+        if (x == n - 1 && (y - k + m) % m == m - 1)
         {
-            if (s[i] == 'B')
-            {
-                cout << "Bob" << endl;
-                cheakmate
-            }
+            min_d = min(min_d, d);
+            continue;
         }
 
-        cout << "Alice" << endl;
-        cheakmate
-    }
-
-    if (s[0] == 'B')
-    {
-        map<int, int> mp;
-
-        for (int i = 1; i < n - 1; i++)
+        if (x != -1)
         {
-            if (s[i] == 'A')
-            {
-                int ok = 0;
-
-                for (int j = i + 1; j < n - 1; j++)
-                {
-                    if (s[j] == 'B')
-                    {
-                        mp[j] = 1;
-                        ok = 1;
-                        break;
-                    }
-                }
-                if (ok == 0)
-                {
-                    cout << "Alice" << endl;
-                    cheakmate
-                }
-            }
+            int new_y = (y + 1) % m;
+            h.push(make_tuple(d + mat[x][new_y], k, x, new_y));
         }
 
-        cout << "Bob" << endl;
-        cheakmate
+        if (x == n - 1)
+            continue;
+
+        for (int f = 0; f < m; ++f)
+        {
+            int new_y = (y - k + f + m) % m;
+            int val = d + mat[x + 1][new_y] + f * rr;
+            if (val > min_d)
+                continue;
+            h.push(make_tuple(val, f, x + 1, new_y));
+        }
     }
+
+    cout << min_d << '\n';
 }
-
 // priority_queue<int>pq;
 // priority_queue<int,vector<int>,greater<int>>pq;
 //  sort(ALL(a),greater<int>());

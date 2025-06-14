@@ -1,5 +1,6 @@
 
 /*
+
 ⠐⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣆⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣆⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠃⠀⠀⠀⠀⢀⠀⠀⠀⠘⣿⣿⣆⠀⠀
@@ -16,7 +17,8 @@
 ⢸⣧⠀⠀⠀⢸⡇⠀⣿⡀⠀⠀⠀⠀⠀⢰⣿⣿⡄⠀⠀⠀⠀⢹⡟⠀⠀⠀⣿⡇
 ⠈⣿⡄⠀⢀⣿⠇⠀⣿⣧⡀⠀⠀⠀⣠⣿⠋⣿⣿⣦⣀⣀⣠⣾⡇⠀⠀⠀⢿⡇
 ⠀⢻⣿⣶⣾⡿⠀⠀⠹⣿⣿⣶⣶⣿⣿⠋⠀⠈⠻⣿⣿⣿⡿⠟⠀⠀⠀⠀⢸⡇
-⠀⠀⠙⠛⠋⠀⠀⠀⠀⠈⠛⠿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠙⠛⠋⠀⠀⠀⠀⠈⠛⠿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀
+
 */
 /*
     "BISMILLAHIR RAHMANIR RAHIM"
@@ -27,10 +29,10 @@
 */
 
 #include <bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
+//#include <ext/pb_ds/assoc_container.hpp>
+//#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
-// using namespace __gnu_pbds;
+//using namespace __gnu_pbds;
 #define ll long long
 #define vll vector<long long>
 #define vpll vector<pair<long long, long long>>
@@ -55,9 +57,10 @@ using namespace std;
 #define pz cout << "0\n";
 #define pn cout << "NO\n";
 #define cheakmate return;
-// #define pbds tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for set
-// int d = st.order_of_key(pre2[n / 2]);
-// #define pbds tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for multiset
+//#define pbds tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for set
+            //int d = st.order_of_key(pre2[n / 2]);
+//#define pbds tree<ll, null_type, less_equal<ll>, rb_tree_tag, tree_order_statistics_node_update>   //for multiset
+
 
 const int N = 1e5 + 5;
 #define Mod 1000000009 + 7
@@ -180,95 +183,27 @@ void solve()
 
     // 2d input
     // vector<vector< int>> d(n, vector< int>(m));
-    int n;
-    cin >> n;
+    //   int n;
+    // cin >> n;
     // vector< int> a(n);
     // for (int i = 0; i < n; i++)
     // {
     //     cin >> a[i];
     //}
-
-    string s;
-    cin >> s;
-    if (s[0] == 'A' && s[n - 1] == 'A')
-    {
-        cout << "Alice" << endl;
-        cheakmate
-    }
-
-    if (s[0] == 'B' && s[n - 1] == 'B')
-    {
-        cout << "Bob" << endl;
-        cheakmate
-    }
-    // if (s == "AB")
-    // {
-    //     cout << "Alice" << endl;
-    //     cheakmate
-    // }
-
-        int ok1 = 1,
-        ok = 2;
-    if (s[0] == 'A')
-    {
-
-        for (int i = 1; i < n - 1; i++)
-        {
-            if (s[i] == 'B')
-            {
-                cout << "Bob" << endl;
-                cheakmate
-            }
-        }
-
-        cout << "Alice" << endl;
-        cheakmate
-    }
-
-    if (s[0] == 'B')
-    {
-        map<int, int> mp;
-
-        for (int i = 1; i < n - 1; i++)
-        {
-            if (s[i] == 'A')
-            {
-                int ok = 0;
-
-                for (int j = i + 1; j < n - 1; j++)
-                {
-                    if (s[j] == 'B')
-                    {
-                        mp[j] = 1;
-                        ok = 1;
-                        break;
-                    }
-                }
-                if (ok == 0)
-                {
-                    cout << "Alice" << endl;
-                    cheakmate
-                }
-            }
-        }
-
-        cout << "Bob" << endl;
-        cheakmate
-    }
+    
 }
-
-// priority_queue<int>pq;
-// priority_queue<int,vector<int>,greater<int>>pq;
-//  sort(ALL(a),greater<int>());
-//  int maxi=*max_element(a.begin(),a.end());
-//   int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
+//priority_queue<int>pq;
+//priority_queue<int,vector<int>,greater<int>>pq;
+// sort(ALL(a),greater<int>());
+// int maxi=*max_element(a.begin(),a.end());
+//  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
 
 // sort(vec.begin(), vec.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
-// if (a.first != b.first) {
-// return a.first < b.first; // Sort by first element (ascending)
-//}
-// return a.second > b.second;  // If first elements are equal, sort by second element (descending)
-// });
+       // if (a.first != b.first) {
+            //return a.first < b.first; // Sort by first element (ascending)
+        //}
+        //return a.second > b.second;  // If first elements are equal, sort by second element (descending)
+   // });
 signed main()
 {
 
