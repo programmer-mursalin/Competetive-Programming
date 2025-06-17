@@ -1,83 +1,87 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
+// using namespace __gnu_pbds;
+#define int long long
+#define gcd __gcd
 
-// Function to solve each test case
+#define ALL(x) (x).begin(), (x).end()
+#define py cout << "YES\n";
+#define pm cout << "-1\n";
+#define pz cout << "0\n";
+#define pn cout << "NO\n";
+#define cheakmate return;
+const int N = 1e5 + 5;
+#define Mod 1000000009 + 7
+bool cheak(int mid, vector<vector<int>> &mp, int l, int k)
+{
+
+    l--;
+    int cnt = 0;
+
+    for (int i = 0; i < 32; i++)
+    {
+
+        if (l > 0)
+        {
+            if ((mp[mid][i] - mp[l - 1][i] == 0))
+            {
+                cnt |= (1LL << i);
+            }
+        }
+        else
+        {
+            cnt |= (1LL << i);
+        }
+    }
+    return k >= cnt;
+}
 void solve()
 {
-    int n;
-    cin >> n; // Number of elements
 
-    vector<int> a(n); // Array
+    // 2d input
+    // vector<vector< int>> d(n, vector< int>(m));
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    vector<vector<int>> mp(n, vector<int>(32, 0)); // 6 bits: 0 to 5
+
     for (int i = 0; i < n; i++)
     {
-        cin >> a[i]; // Input elements
+        cin >> a[i];
     }
 
-    // Preprocessing for each bit position
-    vector<vector<int>> bitCount(32, vector<int>(n, 0));
-
-    for (int bit = 0; bit < 32; bit++)
+    for (int j = 0; j < 32; j++) // from LSB to MSB (0 to 5)
     {
+        int cnt = 0;
         for (int i = 0; i < n; i++)
         {
-            // Check if the 'bit'-th bit is set in a[i]
-            if ((a[i] & (1 << bit)) == 0)
+            if ((a[i] & (1LL << j)) == 0)
             {
-                bitCount[bit][i] = 1;
+                cnt++;
             }
-
-            // Add previous value to make prefix sum
-            if (i > 0)
-            {
-                bitCount[bit][i] += bitCount[bit][i - 1];
-            }
+            mp[i][j] = cnt;
         }
     }
 
     int q;
-    cin >> q; // Number of queries
+    cin >> q;
 
-    while (q--)
+    for (int i = 0; i < q; i++)
     {
+        int ans = -1;
         int l, k;
-        cin >> l >> k; // 1-based index
-        l--;           // Convert to 0-based index
-
-        int low = l;
-        int high = n - 1;
-        int answer = -1; // If no valid r found
+        cin >> l >> k;
+        int low = l, high = n - 1;
 
         while (low <= high)
         {
-            int mid = (low + high) / 2;
-            int andValue = 0;
-
-            for (int bit = 0; bit < 32; bit++)
+            int mid = low + (high - low) / 2;
+            if (cheak(mid, mp, l, k))
             {
-                int count;
-
-                if (l > 0)
-                {
-                    count = bitCount[bit][mid] - bitCount[bit][l - 1];
-                }
-                else
-                {
-                    count = bitCount[bit][mid];
-                }
-
-                int length = mid - l + 1;
-
-                if (count == 0)
-                {
-                    andValue = andValue | (1 << bit);
-                }
-            }
-
-            if (andValue >= k)
-            {
-                answer = mid;  // Update answer
-                low = mid + 1; // Try for bigger range
+                ans = mid;
+                low = mid + 1;
             }
             else
             {
@@ -85,29 +89,39 @@ void solve()
             }
         }
 
-        // If no answer found, print -1
-        if (answer == -1)
+        if (ans == -1)
         {
             cout << -1 << " ";
         }
         else
         {
-            cout << (answer + 1) << " "; // Convert back to 1-based index
+            cout << (ans + 1) << " "; // Convert back to 1-based index
         }
     }
 
     cout << endl;
 }
 
-int main()
-{
-    int t;
-    cin >> t; // Number of test cases
+// sort(ALL(a),greater<int>());
+// int maxi=*max_element(a.begin(),a.end());
+//  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
 
+signed main()
+{
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
+    int t;
+    cin >> t;
     while (t--)
     {
-        solve(); // Solve each test case
+        solve();
     }
-
     return 0;
 }
+
+/*===============================================
+  :::::::::::::Author :Md.Mursalin:::::::::::::
+  ===============================================*/
