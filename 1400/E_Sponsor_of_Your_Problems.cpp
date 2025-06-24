@@ -25,8 +25,8 @@ int ans(int idx, bool tightl, bool tightr)
     }
     else // high == low + 1
     {
-        int ma = ans(idx + 1, tightl, false) + (l[idx] == low) + (r[idx] == low);
-        ma = min(ma, ans(idx + 1, false, tightr) + (l[idx] == high) + (r[idx] == high));
+        int ma = ans(idx + 1, tightl, false) + (l[idx] == low);
+        ma = min(ma, ans(idx + 1, false, tightr) + (r[idx] == high));
         return ma;
     }
 }
