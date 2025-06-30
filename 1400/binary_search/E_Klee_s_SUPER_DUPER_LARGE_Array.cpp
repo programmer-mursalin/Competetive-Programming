@@ -19,41 +19,42 @@ void solve()
     int total = n + (k - 1);
 
     // Sum from 1 to total
-    int sum_all = (total * 1LL * (total + 1)) / 2;
+    int sum_all = (total * (total + 1)) / 2;
 
     // Sum of (k - 1) smallest numbers: 1 + 2 + ... + (k-1)
-    int removed_sum = ((k - 1) * 1LL * k) / 2;
+    int removed_sum = ((k - 1) * k) / 2;
 
-    int remaining_sum = sum_all - removed_sum * 1LL;
+    int remaining_sum = sum_all - removed_sum;
 
     int low = k, high = total;
-    int answer = n + k - 1;
+    int answer = 0;
     int min_diff = LLONG_MAX;
 
     while (low <= high)
     {
-        int mid = (low + high) * 1LL / 2;
+        int mid = low + (high - low) / 2;
 
         // c = sum of first part (after removing k-1 elements), from k to mid
-        int c = (mid * (mid + 1)) * 1LL / 2 - removed_sum;
+        int c = (mid * (mid + 1)) / 2 - removed_sum;
 
         // d = sum of the rest elements
         int d = remaining_sum * 1LL - c;
 
         int diff = abs(d - c);
-        if (diff < min_diff)
+        if (c < (remaining_sum / 2))
         {
-            min_diff = diff;
-            answer = diff;
+            min_diff = min(min_diff, diff);
             low = mid + 1;
         }
         else
         {
+            min_diff = min(min_diff, diff);
+
             high = mid - 1;
         }
     }
 
-    cout << answer << "\n";
+    cout << min_diff << "\n";
 }
 
 signed main()
