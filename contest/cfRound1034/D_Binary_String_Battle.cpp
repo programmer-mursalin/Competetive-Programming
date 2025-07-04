@@ -43,12 +43,13 @@ void solve()
     else
     {
         int flag = 0;
-        for (int i = 0; i < n; i++)
-        {
 
-            if (i - k + 1 >= 0 && i + k < n)
-                flag = 1;
-        }
+        // if (i - k + 1 >= 0 && i + k < n)
+        //     flag = 1;
+
+        if (n / 2 >= k)
+            flag = 1;
+
         if (flag)
             cout << "Bob" << endl;
         else

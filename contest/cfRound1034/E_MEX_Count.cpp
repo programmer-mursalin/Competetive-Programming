@@ -22,58 +22,44 @@ void solve()
     // vector<vector< int>> d(n, vector< int>(m));
     int n;
     cin >> n;
-    vector<int> a(n);
-    unordered_map<int, int> mp1, mp2;
 
+    map<int, int> mp;
     for (int i = 0; i < n; i++)
     {
-        cin >> a[i];
-        mp1[a[i]]++;
+        int x;
+        cin >> x;
+        mp[x]++;
     }
-    vector<int> v;
-    for (auto it : mp1)
+
+    map<int, int> freq;
+    int mex = 0;
+    for (auto &[x, y] : mp)
     {
-        v.push_back(it.second);
+        if (x == mex)
+        {
+            mex++;
+            freq[y]++;
+        }
     }
 
-    sort(ALL(v));
-
-    for (int i = 0; i <= n; i++)
+    vector<int> a(n + 1, 0);
+    a[n] = 1;
+    for (int i = n - 1; i > n - mex; i--)
     {
-
-        if (i == 0)
-        {
-            cout << 1 << " ";
-            continue;
-        }
-        int x = n - i + 1;
-        auto ub = upper_bound(v.begin(), v.end(), i);
-        if (ub == v.end())
-        {
-            if (mp1[i] >= 1)
-            {
-                cout << min(x, (int)(v.size() + 1)) << " ";
-            }
-            else
-            {
-                cout << min(x, (int)(v.size())) << " ";
-            }
-        }
-        else
-        {
-            int l = ub - v.begin();
-            if (mp1[i] >= 1)
-            {
-                cout << min(x, (int)(l + 1)) << " ";
-            }
-            else
-            {
-                cout << min(x, (int)(l)) << " ";
-            }
-        }
+        a[i] = a[i + 1] + 1;
     }
 
-    cout << endl;
+    a[0] = 1;
+    for (int i = 1; i < n; i++)
+    {
+        if (a[i])
+            break;
+        a[i] = a[i - 1] + freq[i];
+    }
+
+    for (auto &x : a)
+        cout << x << " ";
+    cout << "\n";
 }
 // sort(ALL(a),greater<int>());
 // int maxi=*max_element(a.begin(),a.end());
