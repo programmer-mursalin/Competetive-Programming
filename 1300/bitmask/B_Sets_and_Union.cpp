@@ -1,116 +1,59 @@
 #include <bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
-using namespace std;
-// using namespace __gnu_pbds;
-#define int long long
-#define gcd __gcd
 
-#define ALL(x) (x).begin(), (x).end()
-#define py cout << "YES\n";
-#define pm cout << "-1\n";
-#define pz cout << "0\n";
-#define pn cout << "NO\n";
-#define cheakmate return;
-const int N = 1e5 + 5;
-#define Mod 1000000009 + 7
+using i64 = long long;
 
 void solve()
 {
-
-    // 2d input
-    // vector<vector< int>> d(n, vector< int>(m));
     int n;
-    cin >> n;
+    std::cin >> n;
 
-    set<int> st;
-    vector<set<int>> vst;
+    i64 Or = 0;
+    std::vector<i64> a(n);
+    int ans = 0;
     for (int i = 0; i < n; i++)
     {
+        int k;
+        std::cin >> k;
 
-        set<int> s;
-        int m;
-        cin >> m;
-        for (int j = 0; j < m; j++)
+        while (k--)
         {
             int x;
-            cin >> x;
-            st.insert(x);
-            s.insert(x);
+            std::cin >> x;
+            a[i] |= 1LL << x;
         }
-        // for (int it : s)
-        // {
-        //     mp[it] += (s.size() - 1);
-        // }
-        vst.push_back(s);
-        s.clear();
+        Or |= a[i];
     }
-    size_t maxi = 0;
-
-    for (int it1 : st)
+    for (int i = 1; i <= 50; i++)
     {
-        set<int> ans;
-        set<int> c;
-        set<int> b;
-        // maxi = max(maxi, (st.size() - mp[it]));
+        if ((Or & (1LL << i)) != 0)
 
-        for (int i = 0; i < vst.size(); i++)
         {
-            // cout << "Set " << i + 1 << ": ";
-
-            b = vst[i];
-            int cnt = 0;
-            for (int it2 : b)
+            i64 v = 0;
+            for (int j = 0; j < n; j++)
             {
-
-                if (it2 == it1)
+                if ((a[j] & (1LL << i)) == 0)
                 {
-
-                    for (int k = 0; k < vst.size(); k++)
-                    {
-
-                        c = vst[k];
-
-                        if (c.count(it2) == 0)
-                        {
-                            for (int it4 : c)
-                            {
-                                ans.insert(it4);
-                            }
-                        }
-
-                        // cout << endl;
-                    }
+                    v |= a[j];
                 }
             }
+            ans = std::max(ans, __builtin_popcountll(v));
         }
-        maxi = max(maxi, ans.size());
-        ans.clear();
-        b.clear();
-        c.clear();
     }
-    cout << maxi << endl;
+    std::cout << ans << "\n";
 }
-// sort(ALL(a),greater<int>());
-// int maxi=*max_element(a.begin(),a.end());
-//  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
 
-signed main()
+int main()
 {
-
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
     int t;
-    cin >> t;
+    std::cin >> t;
+
     while (t--)
     {
         solve();
     }
+
     return 0;
 }
-
-/*===============================================
-  :::::::::::::Author :Md.Mursalin:::::::::::::
-  ===============================================*/
