@@ -43,25 +43,21 @@ void solve()
 
     int ok = 0;
     int x = n % m;
-
-    int i = 0;
-    while (i < 30)
+    while (true)
     {
-
+        if (!isPowerOfTwo(m / x))
+        {
+            pm cheakmate
+        }
         cnt += x;
-
         x *= 2;
-
         if (x == m)
         {
             cout << cnt << endl;
             cheakmate
         }
         x %= m;
-        i++;
-    }
-
-    pm
+        }
 }
 
 // sort(ALL(a),greater<int>());
