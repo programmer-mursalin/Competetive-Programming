@@ -17,44 +17,30 @@ const int N = 1e5 + 5;
 
 void solve()
 {
+    int n;
+    cin >> n;
+    vector<pair<int, int>> vp(n);
 
-    // 2d input
-    // vector<vector< int>> d(n, vector< int>(m));
-    int n, s;
-    cin >> n >> s;
-    vector<int> a(n);
+    int o = -1, t = -1, m1 = INT_MIN, m2 = INT_MAX;
+    set<int> sp;
+    map<int, int> mp, mp1, ans;
     for (int i = 0; i < n; i++)
     {
-        cin >> a[i];
+        cin >> vp[i].first >> vp[i].second;
+        if (mp[vp[i].first] == 0)
+        {
+            mp[vp[i].first] = vp[i].second;
+            ans[vp[i].first] = i + 1;
+        }
+        else if (vp[i].second > mp[vp[i].first] && mp[vp[i].first] != 0)
+        {
+            mp[vp[i].first] = vp[i].second;
+            ans[vp[i].first] = i + 1;
+        }
     }
-    int sum = accumulate(ALL(a), 0ll);
-    vector<int> ans(n);
-    int cnt_1 = count(ALL(a), 1);
-    int cnt_2 = count(ALL(a), 2);
-    int cnt_0 = count(ALL(a), 0);
-
-    if (s - sum == 0)
-    {
-        pm cheakmate
-    }
-    if (s - sum > 1)
-    {
-        pm cheakmate
-    }
-
-    for (int i = 0; i < cnt_1; i++)
-    {
-        cout << 1 << " ";
-    }
-    for (int i = 0; i < cnt_2; i++)
-    {
-        cout << 2 << " ";
-    }
-    for (int i = 0; i < cnt_0; i++)
-    {
-        cout << 0 << " ";
-    }
-
+    cout << ans.size() << endl;
+    for (auto it : ans)
+        cout << it.second << " ";
     cout << endl;
 }
 // sort(ALL(a),greater<int>());
