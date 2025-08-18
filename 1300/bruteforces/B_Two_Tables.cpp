@@ -25,7 +25,7 @@ void solve()
     int free_width = leftGap + rightGap;
     int free_height = bottomGap + topGap;
 
-    // impossible check
+   
     if (free_width < k && free_height < l)
     {
         pm cheakmate
@@ -33,13 +33,13 @@ void solve()
 
     double ans1 = 1e18, ans2 = 1e18;
 
-    // horizontal shift
+   
     if (max(leftGap, rightGap) >= k)
         ans1 = 0;
     else if (leftGap + rightGap >= k)
         ans1 = k - max(leftGap, rightGap);
 
-    // vertical shift
+ 
     if (max(bottomGap, topGap) >= l)
         ans2 = 0;
     else if (bottomGap + topGap >= l)
