@@ -22,7 +22,7 @@ void solve()
     // vector<vector< int>> d(n, vector< int>(m));
     int n;
     cin >> n;
-    vector<int> a(n);
+    vector<int> a(n), v;
     int ok = 0;
     int c = 0;
     int maxi = 0, mini = INT_MAX, cnt = 0;
@@ -34,35 +34,23 @@ void solve()
         {
             ok = 1;
 
-            cnt++;
-            mini = min(mini, a[i]);
-            mp[a[i]]++;
+            v.push_back(a[i]);
         }
         else
             c += a[i];
     }
-    int b = -1e18;
-    for (auto it : mp)
-    {
-        if (it.second > b)
-        {
-            b = it.second;
-        }
-    }
+
     if (!ok)
     {
         pz cheakmate
     }
-
-    for (int i = 0; i < n; i++)
+    sort(ALL(v), greater<int>());
+    for (int i = 0; i < (v.size() + 1) / 2; i++)
     {
-        if (mp[a[i]] == b && a[i] & 1)
-        {
-            maxi += (b * a[i] + 1) / 2;
-            break;
-        }
+        maxi += v[i];
     }
-    // if (cnt % 2 == 0)
+
+       // if (cnt % 2 == 0)
     // {
     //     maxi -= mini;
     // }
