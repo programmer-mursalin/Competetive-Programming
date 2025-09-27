@@ -1,30 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
-using u64 = uint64_t;
+
+using ull = unsigned long long;
 using u128 = __uint128_t;
 
-// Binary exponentiation modulo n
-u64 binpower(u64 base, u64 e, u64 mod)
+// fast modular exponentiation
+ull mod_pow(ull base, ull exp, ull mod)
 {
-    u64 result = 1;
+    ull res = 1;
     base %= mod;
-    while (e)
+    while (exp > 0)
     {
-        if (e & 1)
-            result = (u128)result * base % mod;
+        if (exp & 1)
+            res = (u128)res * base % mod;
         base = (u128)base * base % mod;
-        e >>= 1;
+        exp >>= 1;
     }
-    return result;
+    return res;
 }
 
-// Check if 'a' is a composite witness for n
-bool check_composite(u64 n, u64 a, u64 d, int s)
+// witness check
+bool witness(ull n, ull cand, ull d, int r)
 {
-    u64 x = binpower(a, d, n);
+    ull x = mod_pow(cand, d, n);
     if (x == 1 || x == n - 1)
         return false;
-    for (int r = 1; r < s; r++)
+
+    for (int i = 1; i < r; i++)
     {
         x = (u128)x * x % n;
         if (x == n - 1)
@@ -33,26 +35,29 @@ bool check_composite(u64 n, u64 a, u64 d, int s)
     return true;
 }
 
-// Miller-Rabin deterministic for 64-bit numbers
-bool isPrime(u64 n)
+// Miller-Rabin test (deterministic for 64-bit)
+bool prime_check(ull n)
 {
     if (n < 2)
         return false;
 
-    int s = 0;
-    u64 d = n - 1;
+    int r = 0;
+    ull d = n - 1;
     while ((d & 1) == 0)
     {
         d >>= 1;
-        s++;
+        r++;
     }
 
-    // 64-bit deterministic bases
-    for (u64 a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37})
+    // bases for 64-bit numbers
+    static const ull test_bases[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+    for (ull a : test_bases)
     {
         if (n == a)
             return true;
-        if (check_composite(n, a, d, s))
+        if (n % a == 0)
+            return false;
+        if (witness(n, a, d, r))
             return false;
     }
     return true;
@@ -60,14 +65,14 @@ bool isPrime(u64 n)
 
 int main()
 {
-    u64 n;
-    cout << "Enter number: ";
-    cin >> n;
+    ull num;
+    cout << "Input a number: ";
+    cin >> num;
 
-    if (isPrime(n))
-        cout << n << " is prime.\n";
+    if (prime_check(num))
+        cout << num << " is a prime number.\n";
     else
-        cout << n << " is composite.\n";
+        cout << num << " is a composite number.\n";
 
     return 0;
 }
