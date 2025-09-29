@@ -20,9 +20,6 @@ void solve()
     int n;
     cin >> n;
     vector<pair<int, int>> vp(n);
-
-    int o = -1, t = -1, m1 = INT_MIN, m2 = INT_MAX;
-    set<int> sp;
     map<int, int> mp, mp1, ans;
     for (int i = 0; i < n; i++)
     {
@@ -43,9 +40,6 @@ void solve()
         cout << it.second << " ";
     cout << endl;
 }
-// sort(ALL(a),greater<int>());
-// int maxi=*max_element(a.begin(),a.end());
-//  int maxi = distance(a.begin(), max_element(a.begin(), a.end()));   // return max index
 
 signed main()
 {

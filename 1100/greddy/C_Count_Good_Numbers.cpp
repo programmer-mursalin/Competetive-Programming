@@ -10,7 +10,7 @@ using namespace std;
 #define pz cout << "0\n";
 #define pn cout << "NO\n";
 #define cheakmate return;
-const int N = 1e5 + 5;
+const int N = 1e5 + 5;-
 #define Mod 1000000009 + 7
 
 int lcm(int a, int b)

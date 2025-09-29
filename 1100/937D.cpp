@@ -4,7 +4,6 @@ using namespace std;
 #define ll long long
 #define vll vector<long long>
 #define vpll vector<pair<long long, long long>>
-#define pll pair<ll, ll>
 #define gcd __gcd
 #define inf 1e18
 #define pb push_back
