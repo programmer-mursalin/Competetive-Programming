@@ -38,8 +38,7 @@ void solve()
 
     if (cnt == n)
     {
-        cout << 0 << endl;
-        return;
+        pz cheakmate
     }
 
     sort(pnai.begin(), pnai.end());
@@ -47,12 +46,11 @@ void solve()
 
     for (int x : pnai)
     {
-        // find element >= 2 * x
+
         auto it = s.upper_bound(2 * x);
         if (it == s.end())
         {
-            cout << -1 << endl;
-            return;
+            pm cheakmate
         }
         s.erase(it);
     }
