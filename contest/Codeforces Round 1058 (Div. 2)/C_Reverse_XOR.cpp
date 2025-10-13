@@ -14,11 +14,29 @@ using namespace std;
 #define cheakmate return;
 const int N = 1e5 + 5;
 #define Mod 1000000009 + 7
-int min_bit(int n)
+string to_binary(long long n)
 {
-    if (n == 0)
-        return 1;
-    return (int)log2(n) + 1;
+    string s;
+    while (n)
+    {
+        s.push_back((n % 2) + '0');
+        n /= 2;
+    }
+    reverse(s.begin(), s.end());
+    return s;
+}
+
+bool is_palindrome(const string &s)
+{
+    int i = 0, j = s.size() - 1;
+    while (i < j)
+    {
+        if (s[i] != s[j])
+            return false;
+        i++;
+        j--;
+    }
+    return true;
 }
 void solve()
 {
@@ -33,11 +51,25 @@ void solve()
     //     cin >> a[i];
     //}
 
-    int n;
-    cin >> n;
+    long long p;
+    cin >> p;
 
-    if (__builtin_popcount(n) & 1)
-        pn else py
+    string e = to_binary(p);
+    if (count(ALL(e), '1') & 1)
+    {
+        pn cheakmate
+    }
+    // Try adding 0 to 32 leading zeros
+    for (int i = 0; i <= 32; i++)
+    {
+        string t = string(i, '0') + e; // add i zeros in front
+        if (is_palindrome(t))
+        {
+            py cheakmate;
+        }
+    }
+
+    pn
 }
 // sort(ALL(a),greater<int>());
 // int maxi=*max_element(a.begin(),a.end());
